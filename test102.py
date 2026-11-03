@@ -45,6 +45,8 @@ word_counts = Counter(words)
 print("Unique words:", len(word_counts))
 
 
+
+
 # Display each word and its count
 print("\nWord List:")
 for word, count in word_counts.most_common():
