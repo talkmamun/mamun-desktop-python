@@ -1,0 +1,60 @@
+
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[USP_Ingredient_Insert]
+(
+    @Id INT OUTPUT,
+ 
+    @UserRole NVARCHAR(256),
+    @IP CHAR(15)
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON; -- auto rollback on error
+
+    BEGIN TRY
+        BEGIN TRAN;
+
+         declare @AuditValue nvarchar(527) = @UserName + '|' + @UserRole + '|' + @IP
+		 EXEC sp_set_session_context 'AuditValue', @AuditValue
+
+        -- ✅ Validate RawMaterial existence (CRITICAL FIX)
+        IF NOT EXISTS (SELECT 1 FROM RawMaterials WHERE Id = @RawMaterialId)
+        BEGIN
+            RAISERROR('Invalid RawMaterialId. Raw material does not exist.', 16, 1);
+            RETURN;
+        END
+
+        -- ✅ Validate Quantity
+        IF (@RawMaterialQty <= 0)
+        BEGIN
+            RAISERROR('RawMaterialQty must be greater than zero.', 16, 1);
+            RETURN;
+        END
+
+
+        -- ✅ Insert Ingredient
+        INSERT INTO Ingredients
+        (
+            RawMaterialId,
+            
+            TotalCost,
+            CreatedBy,
+            CreatedDate
+        )
+        VALUES
+        (
+            @RawMaterialId,
+            @ItemSalesId,
+        
+        -- 🔥 Proper error propagation
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+       
+        DECLARE @ErrorState INT = ERROR_STATE();
+
+        RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END
