@@ -9,4 +9,6 @@ b=20
 
 print("Total " , a+b , "\n\n") 
 
+print("New Line ") 
+
 
