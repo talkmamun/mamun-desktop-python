@@ -20,7 +20,7 @@ elif    Student_mark  <= 49:
       print("Grade point : C " )
 
 elif    Student_mark  <= 59:
-      print("Grade point : B  3 " )
+      print("Grade point : B  3.0 " )
 elif    Student_mark  <= 69 :
       print("Grade point : A -  3.5" )
 
