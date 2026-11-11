@@ -9,9 +9,9 @@ marks_english = int(input("Enter English marks: "))
 marks_python  = int(input("Enter Python marks: "))
 
 
-if marks_english < 0 or marks_english > 100 or marks_math < 0 or marks_math or marks_python < 0 or marks_python > 100:
+if marks_english < 0 or marks_english > 100 or marks_math < 0 or marks_math>100 or marks_python < 0 or marks_python > 100:
         print("Invalid marks. Please enter a value between 0 and 100.")
-      
+         
 else:
      
        average_marks = (marks_math + marks_english + marks_python) / 3
@@ -28,9 +28,11 @@ else:
             grade = "C"
        else:
             grade = "F"
-
+            
 
        print(f"\nStudent Name: {name}")
        print(f"Average Marks: {average_marks:.2f}")
        print(f"Final Grade: {grade}\n\n")
 
+
+       # ,,,,
