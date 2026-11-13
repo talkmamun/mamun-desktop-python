@@ -1,37 +1,39 @@
 # Name : AL MAMUN, Batch-14, 01614071297, talkmamun@gmail.com 
 # Assignment 2
 
-# Shopping Cart
+# Shopping Cart ...
+
+
+
+def checking_numeric_value_input(data):
+    
+  while True:
+    try:
+        price = int(input(f" {data}  "))
+        if price<0:
+           print("Enter Positive value")
+        else:   
+           return price
+    except ValueError:
+        print("Invalid Input! Please enter a numeric value.")
+ 
+    
+#=============== Main ==================================================================
 
 name = input("\n\nEnter your name: ")  
 
 product1_name = input("Enter product name 1: ")
+product1_price = checking_numeric_value_input("Enter product price 1: ")
 
-while True:
-        product1_price = int(input("Enter product price: "))
-        if product1_price < 0:
-            print("Price cannot be negative. Please enter a valid price.")
-            continue
-        break
 #----------------------------------
 
 product2_name = input("Enter product name 2: ")
-while True:
-        product2_price = int(input("Enter product price 2: "))
-        if product2_price < 0:
-            print("Price cannot be negative. Please enter a valid price.")
-            continue
-        break
+product2_price = checking_numeric_value_input("Enter product price 2: ")
 
 #----------------------------------
 
 product3_name = input("Enter product name 3: ")
-while True:
-        product3_price = int(input("Enter product price 3: "))
-        if product3_price < 0:
-            print("Price cannot be negative. Please enter a valid price.")
-            continue
-        break
+product3_price = checking_numeric_value_input("Enter product price 3: ")
 
 total_price = product1_price + product2_price + product3_price
 
@@ -63,8 +65,6 @@ print(f"Price 2:: {product2_price}")
 print(f"\nProduct 3:: {product3_name}")
 print(f"Price 3:: {product3_price}")
 
-print(f"\nSubtotal: {subtotal}")      
-print(f"Discount: {discount}")
-print(f"Final Total: {final_total}")
-
-
+print(f"\nSubtotal: {subtotal:.2f}")      
+print(f"Discount: {discount:.2f}")
+print(f"Final Total: {final_total:.2f}\n")
