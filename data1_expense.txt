@@ -1,0 +1,16 @@
+{"name": "aa", "amount": 11, "category": "aaa"}
+{"name": "bb", "amount": 22, "category": "bbb"}
+{"name": "cc", "amount": 33, "category": "ccc"}
+{"name": "dd", "amount": 44, "category": "ddd"}
+{"name": "aa", "amount": 110, "category": "aaa"}
+{"name": "bb", "amount": 200, "category": "bbb"}
+{"name": "dd", "amount": 4000, "category": "ddd"}
+{"name": "ee", "amount": 500, "category": "eee"}
+{"name": "ff", "amount": 600, "category": "fff"}
+{"name": "dd", "amount": 404, "category": "ddd"}
+{"name": "pp", "amount": 9000, "category": "ppp"}
+{"name": "zz", "amount": 5000, "category": "zzz"}
+{"name": "aa", "amount": 4000, "category": "aaa"}
+{"name": "bb", "amount": 3000, "category": "bbb"}
+{"name": "cc", "amount": 2000, "category": "ccc"}
+{"name": "kk", "amount": 8000, "category": "kkk"}

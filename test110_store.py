@@ -56,25 +56,38 @@ def save_data_List_to_file(expense_list):
        
 
 #-----------------------------------------------------------
-def apend_new_expense_data_to_file(file_name, data_dict):
+def apend_new_data_to_file(file_name, data_dict):
    
   #result = print("json.dump(data_dict) : " , json.dumps(data_dict))
   
   result = json.dumps(data_dict) + "\n"
     
   with open(file_name, "a") as f:
-          #json.dump(exp_list, f, indent=4)
-          f.write(result)
+         f.write(result)
             
-  print("Successfully add the new expense data to file ")
+  print("Successfully add the new data to file ")
+  
+  
+#-----------------------------------------------------------
+def save_whole_dict_data_to_file(file_name, data_dict):
+   
+  #result = print("json.dump(data_dict) : " , json.dumps(data_dict))
+  
+  result = json.dumps(data_dict) + "\n"
+    
+  with open(file_name, "w") as f:
+         f.write(result)
+            
+  print("Successfully add the new data to file ")
+  
 
 #----------------------------------------------------------
-def load_data_from_file_to_List():
+def load_data_from_file_to_List(file_name):
 
-    print("Load Data")
+    print("Load Data from file to List[] ")
     result = []
 
-    with open("data1_expense.txt", "r") as f:
+    with open(file_name, "r") as f:
 
         for line in f:
             data_dic = json.loads(line)
@@ -86,12 +99,12 @@ def load_data_from_file_to_List():
 def check_file_exists_or_not(file_location):
     
    try:
-        with open(file_location  , "r") as f:
-           print("File not Exists")
+        with open(file_location, "r") as f:
+           print("File Exist")
            return True
 
    except FileNotFoundError:
-           print("File not Exists")
+           print("File not Exist")
            return False 
 
 #----------------------------------------------------
@@ -177,21 +190,67 @@ def view_specific_category(data):
     print("Total_amount : ", total_amount)
 
 
+#----------------------------------------------------
 def set_category_wise_budget():
     print()   
     #food, transport, bills, shopping, health, other. Any
     #other category is saved as "other"
-    category_budget_dict = {}
     
-    while True:
-        category_name   = input("Enter Category Name (q:Quit) : ") 
-        if category_name =="q" or category_name =="Q":
-           break 
-        category_budget = input("Enter Category Budget : ") 
-        category_budget_dict[category_name] =   category_budget
+    i=input("Enter s:Set Budget , v:View Budget,  ")
      
-    print(category_budget_dict)  
+    if i=="s":  
+            category_budget_dict = {}    
+            while True :
+                category_name   = input("Enter Category Name "
+                                        "\n(f:food, t:transport, b:bills, s:shopping, h:health, o:other) (q:Quit) : ") 
+            
+                if category_name =="f" or category_name =="F":
+                    category_name="food"
+                elif category_name =="t"  or category_name =="T" :
+                    category_name="transport"
+                elif category_name =="b" or category_name =="B" :
+                    category_name="bills"
+                elif category_name =="s" or category_name =="S":
+                    category_name="shopping"
+                elif category_name =="h" or category_name =="H":
+                    category_name="health"
+                elif category_name =="q" or category_name =="Q":
+                    break 
+                category_budget = input("Enter Category Budget : ") 
+                category_budget_dict[category_name] =  category_budget
+                #print("category_budget_dict (each) : ", category_budget_dict)
+                # End while 
+            
+            print("category_budget_dict : ", category_budget_dict)
+            save_whole_dict_data_to_file(data_category_file, category_budget_dict)
      
+    elif i=="v":         
+        print("Budget Report") 
+        view_category_wise_budget(data_category_file)
+    else:
+        print("Invalid input")   
+     
+               
+    # print(category_budget_dict)  
+
+ #----------------------------------------------------
+def view_category_wise_budget(file_name):
+    
+    print("Load category Data from file to List[] ")
+    result = {}
+    
+    with open(file_name, "r") as f:
+        result=json.load(f)
+            
+    #return result
+    
+    
+    print("Category  :  Amount  ")  
+    for category, amount in result.items():
+          print(f"{category}   :   {amount} "  )  
+   
+        
+        
 #=====================================================================================
 #=====================================================================================
 
@@ -205,7 +264,7 @@ data_category_file = "data1_category.txt"
 
 #----------------------------------------------------
 if check_file_exists_or_not(data_expense_file):
-   expense_list=load_data_from_file_to_List()
+   expense_list=load_data_from_file_to_List(data_expense_file)
    print("\nLoad Existing File Data : ", expense_list)
 else: 
    with open(data_expense_file, "w") as f:
@@ -244,7 +303,7 @@ while True:
     #print("successfully added the data to main list : " , new_expense_dict )     
     #print("\nExpense List (all, After insert ): " , expense_list) 
     
-    apend_new_expense_data_to_file(data_expense_file, new_expense_dict)     
+    apend_new_data_to_file(data_expense_file, new_expense_dict)     
     
     #save_data_List_to_file(expense_list)
     
@@ -266,9 +325,10 @@ while True:
       
   
   elif a==9:
-     print("Set Budget")
-     set_category_wise_budget()    
-         
+     print("Budget")
+     set_category_wise_budget() 
+     
+          
   elif a==0:
     print("Exit Program")
     break
