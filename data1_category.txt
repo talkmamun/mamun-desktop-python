@@ -1,1 +1,1 @@
-{"food": "10000", "transport": "11000"}
+{"bills": "13000", "shopping": "13000", "health": "14000", "food": "11000", "transport": 12001.0, "other": 15001.0}
